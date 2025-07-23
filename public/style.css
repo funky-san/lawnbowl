@@ -1,0 +1,94 @@
+.nav-colour{
+    background-color:#7ECC62;
+    border-top-right-radius: 60px;
+    border-bottom-right-radius: 60px;
+    height: 770px;
+    padding-left: 10px;
+    padding-right: 0;
+    padding-top: 10px;
+    box-sizing: border-box;
+}
+
+.image{
+    padding: 0;
+}
+
+.selected{
+    font-size: 75px;
+    background-color: #74BD5B;
+}
+
+.not-selected{
+    font-size: 60px;
+}
+
+.selected, .not-selected {
+    font-weight: 350;
+    color:white;
+    border: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100px;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body{
+    background-color: #E5E5E5;
+    color: black;
+}
+
+.middle-section{
+    background-color: #E2E2E2;
+    border: 0;
+    width: 100%;
+    color: black;
+}
+
+.input.middle-section {
+    color: black;
+    background-color: #E2E2E2;
+}
+
+.input.middle-section::placeholder {
+  color: black;
+  opacity: 0.5;
+}
+
+.inner-background{
+    background-color: #D8D8D8 !important;
+    color: black !important;
+    border: 0 !important;
+}
+
+.post{
+    height: 250px;
+}
+
+.inner-inner-background{
+    background-color: #E5E5E5;
+    color: black;
+    border-radius: 10px;
+    border: 0;
+}
+
+.input-text{
+    width: 100%;
+    height: 5%;
+}
+
+.modal-content{
+    height: 90%;
+}
+
+input::placeholder,
+textarea::placeholder {
+  color: black !important;
+}
+
+.better{
+    background-color: #BF8DC4;
+}

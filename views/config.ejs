@@ -1,0 +1,138 @@
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Lawn Bowls Website</title>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@1.0.4/css/bulma.min.css">
+        <link rel="stylesheet" href="style.css">
+    </head>
+  <body>
+    <div class="columns">
+        <div class="column is-3 nav-colour">
+            <%- include('navbar'); %>
+        </div>
+        <div class="column is-1"></div>
+        <div class="column is-7 middle-section">
+            <p class="has-text-centered"> <%= selectedEvent.tournament %> CONFIG</p>
+            <div>
+                <form action="/update-scores" method="post">
+                    <% rounds.forEach((round, roundIndex) => { %>
+                        <div class="column inner-inner-background mb-4">
+                        <p class="has-text-weight-bold">ROUND <%= roundIndex + 1 %></p>
+                        <% round.forEach((match, matchIndex) => { %>
+                            <div class="columns">
+                                <div class="column is-1 is-size-2 has-text-weight-bold">
+                                    <input type="number" name="scores[<%= roundIndex %>][<%= matchIndex %>][score1]" class="input inner-background" min="0" value="<%= match.score1 %>">
+                                </div>
+
+                                <div class="column is-3 is-size-5 mt-4"><%= match.team1 %>:</div>
+                                
+                                <div class="column is-4 has-text-centered is-size-5">vs</div>
+
+                                <div class="column is-3 is-size-5 mt-4"><%= match.team2 %>:</div>
+
+                                <div class="column is-1 is-size-2 has-text-weight-bold">
+                                    <input type="number" name="scores[<%= roundIndex %>][<%= matchIndex %>][score2]" class="input inner-background" min="0" value="<%= match.score2 %>">
+                                </div>
+
+                            </div>
+                        <% }) %>
+                        </div>
+                    <% }) %>
+                    <button class="button" type="submit">Save Scores</button>
+                </form>
+            </div>
+            <div>
+                <form action="/new-update" method="post">
+                    <div class="columns">
+                        <div class="column is-1 mt-3 ml-5 mr-5">
+                            TITLE:
+                        </div>
+                        <div class="column is-10">
+                            <input class="input inner-background" type="text" placeholder="enter title..." name="title"> <!-- input area for username -->             
+                        </div>
+                    </div>
+
+                    <div class="columns ml-2 mr-2">
+                        <div class="column is-12">
+                            <textarea class="textarea inner-background" placeholder="type here to write your update..." name="update" rows="5"></textarea> <!-- input area for post description -->
+                        </div>
+                    </div>
+
+                    <div class="ml-5 mt-1 pb-4">
+                        <button class="button" type="submit">Submit</button> <!-- button used to submit data -->
+                    </div>
+                </form>
+            </div>
+
+            <div>
+                <form action="/new-player" method="post">
+                    <h3>ADD PLAYER</h3>
+                    <div class="columns">
+                        <div class="column is-1 mt-3 ml-5 mr-5">
+                            NAME:
+                        </div>
+                        <div class="column is-10">
+                            <input class="input inner-background" type="text" placeholder="enter player name..." name="name">             
+                        </div>
+                    </div>
+
+                    <div class="columns">
+                        <div class="column is-1 mt-3 ml-5 mr-5">
+                            WINS:
+                        </div>
+                        <div class="column is-2">
+                            <input class="input inner-background" type="text" placeholder="enter wins..." name="wins"> <!-- input area for username -->             
+                        </div>
+                        <div class="column is-1 mt-3 ml-5 mr-5">
+                            LOSSES:
+                        </div>
+                        <div class="column is-2">
+                            <input class="input inner-background" type="text" placeholder="enter losses..." name="losses"> <!-- input area for username -->             
+                        </div>
+                        <div class="column is-1 mt-3 ml-5 mr-5">
+                            DRAWS:
+                        </div>
+                        <div class="column is-2">
+                            <input class="input inner-background" type="text" placeholder="enter draws..." name="draws"> <!-- input area for username -->             
+                        </div>
+                    </div>
+
+                    <div class="columns">
+                        <div class="column is-1 mt-3 ml-5 mr-5">
+                            WIN STREAK:
+                        </div>
+                        <div class="column is-10">
+                            <input class="input inner-background" type="text" placeholder="enter streak..." name="streak"> <!-- input area for username -->             
+                        </div>
+                    </div>
+
+                    <div class="columns">
+                        <div class="column is-1 mt-3 ml-5 mr-5">
+                            AVERAGE POINTS PER GAME:
+                        </div>
+                        <div class="column is-10">
+                            <input class="input inner-background" type="text" placeholder="enter average..." name="average"> <!-- input area for username -->             
+                        </div>
+                    </div>
+
+                    <div class="columns">
+                        <div class="column is-1 mt-3 ml-5 mr-5">
+                            TOTAL POINTS SCORED:
+                        </div>
+                        <div class="column is-10">
+                            <input class="input inner-background" type="text" placeholder="enter total..." name="total"> <!-- input area for username -->             
+                        </div>
+                    </div>
+
+                    <div class="ml-5 mt-1 pb-4">
+                        <button class="button" type="submit">Submit</button> <!-- button used to submit data -->
+                    </div>
+                </form>
+            </div>
+
+        </div>
+        <div class="column is-1"></div>
+    </div>
+  </body>
+</html>

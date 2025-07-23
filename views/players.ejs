@@ -1,0 +1,79 @@
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Lawn Bowls Website</title>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@1.0.4/css/bulma.min.css">
+        <link rel="stylesheet" href="style.css">
+    </head>
+  <body>
+    <div class="columns">
+        <div class="column is-3 nav-colour">
+            <%- include('navbar'); %>
+        </div>
+        <div class="column is-1"></div>
+        <div class="column is-7 middle-section">
+            <p class="has-text-centered">PLAYERS</p>
+            <div class="inner-background pt-1 pb-4">
+                <p>SEARCH FOR A PLAYER:</p> <!-- heading to let user know what the form does -->
+                <div class="inner-inner-background m-2 pl-2 pr-2">
+                    <form action="/search" method="post"> <!-- start of form -->
+                        <div class="columns">
+                            <div class="column is-10"><input class="input inner-background" type="text" placeholder="enter player..." name="player"></div>
+                            <div class="column is-2"><button class="button" type="submit">Submit</button></div>
+                        </div>
+                    </form>
+                    <!-- if player has a name display it otherwise do not (help from chatgpt for the '?') -->
+                    <p>Total Matches Played: <%= player ? player.name : 'N/A' %> </p>
+                    <p>Wins/Loses/Draws: <%= player ? player.wins : 'N/A' %> / <%= player ? player.losses : 'N/A' %> / <%= player ? player.draws : 'N/A' %></p>
+                    <p>Win Rate (%): <%= player ? player.winRate : 'N/A' %> </p>
+                    <p>Longest Win Streak: <%= player ? player.streak : 'N/A' %> </p>
+                    <p>Average Points Per Game: <%= player ? player.average : 'N/A' %> </p>
+                    <p>Total Points Scored: <%= player ? player.total : 'N/A' %> </p>
+                </div>
+                <p>COMPARE TWO PLAYERS:</p> <!-- same as above -->
+                <div class="inner-inner-background m-2 pl-2 pr-2">
+                    <form action="/compare" method="post">
+                        <div class="columns">
+                            <div class="column is-5"><input class="input inner-background" type="text" placeholder="enter player..." name="playerOne"></div>
+                            <div class="column is-5"><input class="input inner-background" type="text" placeholder="enter player..." name="playerTwo"></div>
+                            <div class="column is-2"><button class="button" type="submit">Submit</button></div>
+                        </div>
+                    </form>
+                    <div class="columns">
+                        <div class="column is-6">
+                            <p>Total Matches Played: <%= playerOne ? playerOne.name : 'N/A' %> </p>
+                            <p>Wins/Loses/Draws: <%= playerOne ? playerOne.wins : 'N/A' %> / <%= playerOne ? playerOne.losses : 'N/A' %> / <%= playerOne ? playerOne.draws : 'N/A' %></p>
+                            <p>Win Rate (%): <%= playerOne ? playerOne.winRate : 'N/A' %> </p>
+                            <p>Longest Win Streak: <%= playerOne ? playerOne.streak : 'N/A' %> </p>
+                            <p>Average Points Per Game: <%= playerOne ? playerOne.average : 'N/A' %> </p>
+                            <p>Total Points Scored: <%= playerOne ? playerOne.total : 'N/A' %> </p>
+                        </div>
+                        <div class="column is-6">
+                            <p>Total Matches Played: <%= playerTwo ? playerTwo.name : 'N/A' %> </p>
+                            <p>Wins/Loses/Draws: <%= playerTwo ? playerTwo.wins : 'N/A' %> / <%= playerTwo ? playerTwo.losses : 'N/A' %> / <%= playerTwo ? playerTwo.draws : 'N/A' %></p>
+                            <p>Win Rate (%): <%= playerTwo ? playerTwo.winRate : 'N/A' %> </p>
+                            <p>Longest Win Streak: <%= playerTwo ? playerTwo.streak : 'N/A' %> </p>
+                            <p>Average Points Per Game: <%= playerTwo ? playerTwo.average : 'N/A' %> </p>
+                            <p>Total Points Scored: <%= playerTwo ? playerTwo.total : 'N/A' %> </p>
+                        </div>
+                    </div>
+
+                    <div class="better has-text-centered is-size-3">
+                        OVERALL BETTER PLAYER:  
+                        <!-- if playerOne and playerTwo both have a winrate -->
+                        <% if (playerOne && playerTwo && !isNaN(playerOne.winRate) && !isNaN(playerTwo.winRate)) { %>
+                            <!-- compares both winrates and whichever has the higher is, displays the players name -->
+                            <%= parseFloat(playerOne.winRate) > parseFloat(playerTwo.winRate) ? playerOne.name : playerTwo.name %>
+                        <% } else { %>
+                            N/A <!-- otherwise displays N/A -->
+                        <% } %>
+                    </div>
+                    <br>
+                </div>
+            </div>
+        </div>
+        <div class="column is-1"></div>
+    </div>
+  </body>
+</html>

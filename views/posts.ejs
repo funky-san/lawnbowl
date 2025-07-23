@@ -1,0 +1,72 @@
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Lawn Bowls Website</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@1.0.4/css/bulma.min.css">
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+  <div class="columns">
+    <div class="column is-3 nav-colour">
+      <%- include('navbar'); %> <!-- displays the navbar from navbar.ejs -->
+    </div>
+    <div class="column is-1"></div>
+    <div class="column is-7 middle-section">
+      <div class="inner-background mt-3 pb-2">
+        <p class="has-text-centered">POSTS</p>
+        <div class="inner-inner-background m-4">
+          <form action="/post" method="post"> <!-- start of form -->
+            <div class="columns">
+              <div class="column is-1 mt-3 ml-5 mr-5">
+                USERNAME:
+              </div>
+              <div class="column is-10">
+                <input class="input middle-section" type="text" placeholder="enter username..." name="username">
+                <!-- input for username -->
+              </div>
+            </div>
+
+            <div class="columns ml-2 mr-2">
+              <div class="column is-12">
+                <textarea class="textarea middle-section" placeholder="type here to write your post..."
+                  name="description" rows="5"></textarea> <!-- input for post description -->
+              </div>
+            </div>
+
+            <div class="ml-5 mt-1 pb-4">
+              <button class="button" type="submit">Submit</button> <!-- button used to submit data -->
+            </div>
+          </form>
+        </div>
+
+        <!-- if statement adjusted from made by chatgpt -->
+        <% if (posts && posts.length> 0) { %> <!-- if posts has something -->
+          <% posts.forEach(post=> { %> <!-- display each post -->
+            <div class="inner-inner-background m-4 p-4">
+              <p class="is-size-5 has-text-weight-extrabold">
+                <%= post.username %> <!-- post username -->
+              </p>
+              <p>
+                <%= post.description %> <!-- post description -->
+              </p>
+            </div>
+            <% }); %>
+              <% } %>
+                <!-- example of already existing post -->
+                <div class="inner-inner-background m-4 p-4">
+                  <p class="is-size-5 has-text-weight-extrabold">Owner</p>
+                  <p>This is the very post on our new website!</p>
+                  <p>I hope you all enjoy it.</p>
+                </div>
+      </div>
+      <a class="download-link" download="dataFile.txt" href="">Want to see the code for this page? Click to download</a>
+      <!-- download link -->
+    </div>
+    <div class="column is-1"></div>
+  </div>
+</body>
+
+</html>

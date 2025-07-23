@@ -1,0 +1,115 @@
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Lawn Bowls Website</title>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@1.0.4/css/bulma.min.css">
+        <link rel="stylesheet" href="style.css">
+    </head>
+  <body>
+    <div class="modal create-modal"> <!-- modal for creating a tournament -->
+        <div class="modal-background"></div>
+            <div class="modal-content">
+                <div class="box inner-inner-background">
+                    <div class="content">
+                        <form action="/create" method="post"> <!-- create a new tournament form -->
+                            <p>Tournament Name: </p>
+                            <input type="text" id="tournament" name="tournament" placeholder="Enter name" class="input-text">
+                            <br><br>
+                            
+                            <p>Number of Teams: </p>
+                            <select id="teams" class="input-text" name="teams">
+                                <option value="4">4</option>
+                                <option value="6">6</option>
+                                <option value="8">8</option>
+                                <option value="10">10</option>
+                            </select>
+                            <br><br>
+                            <p>Location: </p>
+                            <input type="text" id="location" name="location" placeholder="Enter location" class="input-text">
+                            <br><br>
+                            <p>Password: </p>
+                            <input type="text" id="create-password" name="password" placeholder="Enter password" class="input-text">
+                            <br><br>
+
+                            <button type="submit">Submit</button> <!-- submit button -->
+                            </form>
+                    </div>
+                </div>
+            </div>
+        <button class="modal-close is-large" aria-label="close"></button>
+    </div>
+
+    <div class="modal password-modal"> <!-- modal for inputting a password -->
+        <div class="modal-background"></div>
+            <div class="modal-content">
+                <div class="box inner-inner-background">
+                    <div class="content">
+                        <form action="/config" method="post">
+                            <p>Enter Chosen Password: </p>
+                            <input type="text" id="config-password" name="password" placeholder="Enter password" class="input-text">
+                            <br><br>
+
+                            <button type="submit" onclick="location.href='/wrong'">Submit</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        <button class="modal-close is-large" aria-label="close"></button>
+    </div>
+
+    <div class="columns">
+        <div class="column is-3 nav-colour">
+            <%- include('navbar'); %>
+        </div>
+        <div class="column is-1"></div>
+        <div class="column is-7 middle-section">
+            <p class="has-text-centered">EVENTS</p>
+            <div class="columns is-centered">
+                <div class="column ml-2">
+                    <div class="select is-fullwidth inner-background">
+                        <form action="/choose" method="post">
+                            <div class="columns">
+                                <div class="column is-10">
+                                    <select name="dropdownOption" class="inner-background">
+                                    <% for (let i = 0; i < events.length; i++) { %>
+                                        <option value="<%= i %>" <%= i === selectedIndex ? "selected" : "" %>> <!-- displays each tournament as an option (chatgpt line) -->
+                                            <%= events[i].tournament %>
+                                        </option>
+                                    <% } %>
+                                    </select>
+                                </div>
+                                <div class="column is-2"><button class="button" type="submit">Submit</button></div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <div class="column is-4">
+                    <button type="button" class="button ml-0 mr-1 password-button">Configure This</button>
+                    <button class="button create-new"> Create New</button>
+                </div>
+            </div>
+            <% if (rounds.length > 0) { %>
+                <% rounds.forEach((round, roundIndex) => { %>
+                    <div class="column inner-inner-background mb-4">
+                    <p class="is-size-5 has-text-weight-extrabold">ROUND <%= roundIndex + 1 %>:</p>
+                    <% round.forEach(match => { %>
+                        <div class="columns">
+                            <div class="column is-1 is-size-2 has-text-weight-bold"><%= match.score1 || "-" %></div>
+                            <div class="column is-3 is-size-5 mt-4"><%= match.team1 %></div>
+                            <div class="column is-4 has-text-centered is-size-5">VS</div>
+                            <div class="column is-3 is-size-5 has-text-right mt-4"><%= match.team2 %></div>
+                            <div class="column is-1 is-size-2 has-text-weight-bold"><%= match.score2 || "-" %></div>
+                        </div>
+                    <% }) %>
+                    </div>
+                <% }) %>
+                <% } else { %>
+                <p>No matches available.</p>
+                <% } %>
+        </div>
+        <div class="column is-1"></div>
+    </div>
+    <script src="script.js"></script>
+  </body>
+</html>
